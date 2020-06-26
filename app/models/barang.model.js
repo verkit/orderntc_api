@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
         hargajual3: {
             type: Sequelize.DOUBLE(12, 2)
         },
-        satuan_beliakhir: {
+        nama_kemasan: {
             type: Sequelize.STRING(3)
         }
     }, {
