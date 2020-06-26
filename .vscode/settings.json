@@ -1,0 +1,9 @@
+{
+    "deno.enable": false,
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/196fdab1-5e6b-4751-b5c4-79d8d8b132a9/resourceGroups/verdy/providers/Microsoft.Web/sites/orderntc",
+    "appService.deploySubpath": "."
+}
