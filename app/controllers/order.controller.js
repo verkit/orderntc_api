@@ -30,6 +30,42 @@ exports.findAllDistinct = (req, res) => {
         });
 };
 
+exports.findRekapHariDistinct = (req, res) => {
+    const hari = req.params.hari;
+    const noorder = req.query.noorder;
+
+    var condition = noorder ? {
+        tanggal: {
+            [Op.eq]: new Date(hari),
+        },
+        noorder: {
+            [Op.iLike]: `${noorder}`
+        },
+    } : {
+        tanggal: {
+            [Op.eq]: new Date(hari),
+        }
+    };
+
+    Order.findAll({
+            where: condition,
+            attributes: [
+                [Sq.fn('DISTINCT', Sq.col('noorder')), 'noorder'],
+                'tanggal',
+                'nama_pelanggan'
+            ]
+        })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Beberapa kesalahan terjadi saat mengambil data order."
+            });
+        });
+};
+
+
 exports.findRekapHari = (req, res) => {
     const hari = req.params.hari;
     const noorder = req.query.noorder;
