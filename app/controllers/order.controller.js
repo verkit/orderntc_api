@@ -3,7 +3,7 @@ const Order = db.order;
 const Op = db.Sequelize.Op;
 const Sq = require("sequelize");
 
-exports.findAll = (req, res) => {
+exports.findAllDistinct = (req, res) => {
     const noorder = req.query.noorder;
 
     var orderCondition = noorder ? {
@@ -12,7 +12,6 @@ exports.findAll = (req, res) => {
         },
     } : null;
 
-
     Order.findAll({
             where: orderCondition,
             attributes: [
@@ -20,6 +19,36 @@ exports.findAll = (req, res) => {
                 'tanggal',
                 'nama_pelanggan'
             ]
+        })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Beberapa kesalahan terjadi saat mengambil data order."
+            });
+        });
+};
+
+exports.findRekapHari = (req, res) => {
+    const hari = req.params.hari;
+    const noorder = req.query.noorder;
+
+    var condition = noorder ? {
+        tanggal: {
+            [Op.eq]: new Date(hari),
+        },
+        noorder: {
+            [Op.iLike]: `${noorder}`
+        },
+    } : {
+        tanggal: {
+            [Op.eq]: new Date(hari),
+        }
+    };
+
+    Order.findAll({
+            where: condition
         })
         .then(data => {
             res.send(data);
