@@ -16,7 +16,13 @@ module.exports = (sequelize, Sequelize) => {
         hargajual3: {
             type: Sequelize.DOUBLE(12, 2)
         },
-        nama_kemasan: {
+        kemasan1: {
+            type: Sequelize.STRING(3)
+        },
+        kemasan2: {
+            type: Sequelize.STRING(3)
+        },
+        kemasan3: {
             type: Sequelize.STRING(3)
         }
     }, {
